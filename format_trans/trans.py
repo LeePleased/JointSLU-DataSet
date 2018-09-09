@@ -9,6 +9,9 @@ def transform(in_file, out_file):
 		start = False
 		count = Counter()
 
+		true = 0.0
+		total = 0.0
+
 		for line in lines:
 
 			if start:
@@ -21,6 +24,10 @@ def transform(in_file, out_file):
 					item = count.most_common(1)[0][0]
 					fw.write(item + '\t' + items[0] + '\n')
 
+					if (item == items[0]):
+						true += 1.0
+					total += 1.0
+
 					count.clear()
 					start = False
 			else:
@@ -29,8 +36,11 @@ def transform(in_file, out_file):
 				if len(line) > 2:
 					start=True
 
+	return true / total
+
 if __name__ == "__main__":
-	transform('./error_samples.txt', './test_result.txt')
+	print transform('./error_samples_snips.txt', './test_result_snips.txt')
+	print transform('./error_samples_atis.txt', './test_result_atis.txt')
 
 
 
